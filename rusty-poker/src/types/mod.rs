@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[derive(Copy)]
 pub enum Rank {
   Two,
   Three,
@@ -14,25 +15,32 @@ pub enum Rank {
   King,
   Ace
 }
+impl Clone for Rank {
+    fn clone(&self) -> Rank { *self }
+}
 
 #[derive(Debug)]
+#[derive(Copy)]
 pub enum Suit {
   Diamonds,
   Clubs,
   Hearts,
   Spades
 }
+impl Clone for Suit {
+    fn clone(&self) -> Suit { *self }
+}
 
 #[derive(Debug)]
-pub enum Combination<'a> {
-  HighCard(&'a[Rank]),
-  Pair(&'a[Rank]),
-  TwoPair(&'a[Rank]),
-  ThreeOfAKind(&'a[Rank]),
-  Straight(&'a[Rank]),
-  Flush(&'a[Rank]),
-  FullHouse(&'a[Rank]),
-  FourOfAKind(&'a[Rank]),
-  StraightFlush(&'a[Rank]),
-  RoyalFlush(&'a[Rank])
+pub enum Combination {
+  HighCard(Vec<Rank>),
+  Pair(Vec<Rank>),
+  TwoPair(Vec<Rank>),
+  ThreeOfAKind(Vec<Rank>),
+  Straight(Vec<Rank>),
+  Flush(Vec<Rank>),
+  FullHouse(Vec<Rank>),
+  FourOfAKind(Vec<Rank>),
+  StraightFlush(Vec<Rank>),
+  RoyalFlush(Vec<Rank>)
 }

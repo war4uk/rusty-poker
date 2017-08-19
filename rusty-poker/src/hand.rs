@@ -2,7 +2,7 @@ use card;
 
 #[derive(Debug)]
 pub struct Hand {
-  cards: [card::Card; 2],
+  pub cards: [card::Card; 2],
 }
 
 impl Hand {
