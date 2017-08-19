@@ -1,0 +1,6 @@
+[package]
+name = "rusty-poker"
+version = "0.1.0"
+authors = ["Alex Polyakov <warr4uk@yandex.ru>"]
+
+[dependencies]
