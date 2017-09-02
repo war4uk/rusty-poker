@@ -16,30 +16,31 @@ fn main() {
     };
 
     let card2 = Card {
-        rank: types::Rank::Queen,
+        rank: types::Rank::Four,
         suit: types::Suit::Spades,
     };
 
     let hand = Hand::new(card1, card2);
     let mut table = Table::new();
 
-    println!("{:?}", hand);
-    println!("{:?}", table);  
     table.add_card(Card {
         rank: types::Rank::Jack,
         suit: types::Suit::Spades,
     });
     table.add_card(Card {
-        rank: types::Rank::Ten,
+        rank: types::Rank::Three,
         suit: types::Suit::Spades,
     });    
     table.add_card(Card {
-        rank: types::Rank::Ace,
+        rank: types::Rank::Queen,
         suit: types::Suit::Spades,
     });   
     table.add_card(Card {
-        rank: types::Rank::King,
+        rank: types::Rank::Two,
         suit: types::Suit::Spades,
     });      
+
+    println!("{:?}", hand);
+    println!("{:?}", table);  
     println!(" -> {:?}", Calculator::get_highest_combination(&hand, &table));  
 }

@@ -41,6 +41,5 @@ pub enum Combination {
   Flush(Vec<Rank>),
   FullHouse(Vec<Rank>),
   FourOfAKind(Vec<Rank>),
-  StraightFlush(Vec<Rank>),
-  RoyalFlush(Vec<Rank>)
+  StraightFlush(Vec<Rank>)
 }
