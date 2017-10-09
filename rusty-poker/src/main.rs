@@ -33,11 +33,11 @@ fn main() {
     });    
     table.add_card(Card {
         rank: types::Rank::Jack,
-        suit: types::Suit::Clubs,
+        suit: types::Suit::Spades,
     });   
     table.add_card(Card {
-        rank: types::Rank::Jack,
-        suit: types::Suit::Hearts,
+        rank: types::Rank::Queen,
+        suit: types::Suit::Spades,
     });      
 
     println!("{:?}", hand);

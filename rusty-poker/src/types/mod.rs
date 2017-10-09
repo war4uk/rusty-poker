@@ -1,5 +1,8 @@
 #[derive(Debug)]
 #[derive(Copy)]
+#[derive(Hash)]
+#[derive(PartialEq)]
+#[derive(Eq)]
 pub enum Rank {
   Two,
   Three,
