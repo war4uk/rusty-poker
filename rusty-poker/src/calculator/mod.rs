@@ -4,6 +4,7 @@ use types;
 
 mod straight_flush;
 mod four_of_a_kind;
+mod full_house;
 mod flush;
 mod straight;
 
@@ -20,6 +21,10 @@ impl Calculator {
     }
 
     if let Some(result) = four_of_a_kind::test(hand, table) {
+      return result;
+    }
+
+    if let Some(result) = full_house::test(hand, table) {
       return result;
     }
 

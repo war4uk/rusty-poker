@@ -16,7 +16,7 @@ fn main() {
     };
 
     let card2 = Card {
-        rank: types::Rank::Four,
+        rank: types::Rank::Three,
         suit: types::Suit::Spades,
     };
 
@@ -24,11 +24,11 @@ fn main() {
     let mut table = Table::new();
 
     table.add_card(Card {
-        rank: types::Rank::Jack,
+        rank: types::Rank::Four,
         suit: types::Suit::Spades,
     });
     table.add_card(Card {
-        rank: types::Rank::Three,
+        rank: types::Rank::Jack,
         suit: types::Suit::Spades,
     });    
     table.add_card(Card {
@@ -36,9 +36,13 @@ fn main() {
         suit: types::Suit::Spades,
     });   
     table.add_card(Card {
-        rank: types::Rank::Queen,
+        rank: types::Rank::Four,
         suit: types::Suit::Spades,
-    });      
+    });  
+    table.add_card(Card {
+        rank: types::Rank::Four,
+        suit: types::Suit::Spades,
+    });       
 
     println!("{:?}", hand);
     println!("{:?}", table);  
