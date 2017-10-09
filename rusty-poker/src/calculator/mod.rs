@@ -5,13 +5,16 @@ use table;
 use types;
 use card;
 
+mod straight_flush;
+mod utility;
+
 pub struct Calculator {
 
 }
 
 impl Calculator {
   pub fn get_highest_combination<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> types::Combination {
-    if let Some(result) = Calculator::test_straight_flush(hand, table) {
+    if let Some(result) = straight_flush::test(hand, table) {
       return result;
     }
 
@@ -31,7 +34,7 @@ impl Calculator {
   }
 
   fn test_flush<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<types::Combination> {
-    let sorted_cards = Calculator::get_sorted_cards(&hand.cards[..], &table.cards[..]);
+    let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
     if sorted_cards.len() < 5 {
       return None;
     }
@@ -68,13 +71,13 @@ impl Calculator {
       return None
     }
 
-    let combined_cards = Calculator::combine_hand_and_table(&hand.cards[..], &table.cards[..]); 
+    let combined_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]); 
 
     if combined_cards.len() < 4 {
       return None;
     }
 
-    let mut hashMap = combined_cards.iter().fold(HashMap::new(), |mut acc, &card| {
+    let hash_map = combined_cards.iter().fold(HashMap::new(), |mut acc, &card| {
        { 
          let stat = acc.entry(card.rank as i32).or_insert(0);
         *stat += 1;
@@ -82,11 +85,11 @@ impl Calculator {
       acc
     });
 
-    for (&rankValue, &count) in &hashMap {
+    for (&rank_value, &count) in &hash_map {
         if count == 4 {
-          let mut cards_of_four = combined_cards.iter().filter(|card| { card.rank as i32 == rankValue });
-          return Some(types::Combination::FourOfAKind(vec![cards_of_four.next().unwrap().rank]));  
-        }
+         let mut cards_of_four = combined_cards.iter().filter(|card| { card.rank as i32 == rank_value });
+        return Some(types::Combination::FourOfAKind(vec![cards_of_four.next().unwrap().rank]));  
+        }  
     }
 
     return None;
@@ -97,7 +100,7 @@ impl Calculator {
       return None
     }
 
-    let combined_cards = Calculator::combine_hand_and_table(&hand.cards[..], &table.cards[..]); 
+    let combined_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]); 
     
     if combined_cards.len() < 5 {
       return None;
@@ -107,7 +110,7 @@ impl Calculator {
       return Some(types::Combination::Straight(vec![types::Rank::Five]));
     }
 
-    let sorted_cards = Calculator::get_sorted_cards(&hand.cards[..], &table.cards[..]);
+    let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
     
     for i in 0..(combined_cards.len() - 5 + 1) {      
       let slice_to_test = &sorted_cards[i..(i+5)];        
@@ -148,61 +151,5 @@ impl Calculator {
     }
 
     return true;
-  }
-
-  fn test_straight_flush<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<types::Combination> {
-    if table.cards_count() < 4 {
-      return None
-    }
-    
-    let mut sorted_cards = Calculator::get_sorted_cards(&hand.cards[..], &table.cards[..]);
-    if sorted_cards.len() < 5 {
-      return None;
-    }
-
-    let mut highest_five_cards = &mut sorted_cards[0..4];
-    highest_five_cards.reverse();
-
-    let suit = highest_five_cards[0].suit as i32;
-    let mut rank: i32 = highest_five_cards[0].rank as i32;
-
-    for card in highest_five_cards.iter() {
-        if suit == (card.suit as i32) && rank == (card.rank as i32) {
-          rank = rank - 1;
-        } else {
-          return None;
-        }
-    }
-
-    let ranks: Vec<types::Rank> = highest_five_cards.iter().map(|x| x.rank).collect();
-
-    Some(types::Combination::StraightFlush(ranks))
-  }
-
-  fn combine_hand_and_table(hand_cards: &[card::Card], table_cards: &[Option<card::Card>]) ->  Vec<card::Card> {
-    let mut result: Vec<card::Card> = vec![];
-    result.extend(hand_cards.iter().cloned());
-
-    for card in table_cards {
-      if let Some(c) = *card {
-        result.push(c);
-      }
-    }
-
-    result
-  }
-
-  fn get_sorted_cards(
-    hand_cards: &[card::Card], table_cards: &[Option<card::Card>]
-  ) -> Vec<card::Card> {
-    let mut result: Vec<card::Card> = Calculator::combine_hand_and_table(hand_cards, table_cards);
-   
-    result.sort_by(|ref a, ref b| { 
-      let a_rank: i32 = a.rank as i32;
-      let b_rank: i32 = b.rank as i32;
-      return b_rank.cmp(&a_rank);
-    });
-
-    result
   }
 }
