@@ -12,7 +12,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
 
     for suit in vec![types::Suit::Clubs, types::Suit::Diamonds, types::Suit::Hearts, types::Suit::Spades] {
       if let Some(flush) = test_flush_for_suit_for_slice(suit, &sorted_cards[..]) {
-        return Some(types::Combination::Flush(flush));
+        return Some(types::Combination::Flush(suit, flush));
       }       
     }
 

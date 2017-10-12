@@ -43,7 +43,7 @@ pub enum Combination {
   TwoPair(Vec<Rank>),
   ThreeOfAKind(Vec<Rank>),
   Straight(Vec<Rank>),
-  Flush(Vec<Rank>),
+  Flush(Suit, Vec<Rank>),
   FullHouse(Vec<Rank>),
   FourOfAKind(Vec<Rank>),
   StraightFlush(Vec<Rank>)
