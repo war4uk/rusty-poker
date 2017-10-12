@@ -11,7 +11,7 @@ pub use calculator::Calculator;
 
 fn main() {    
     let card1 = Card {
-        rank: types::Rank::Jack,
+        rank: types::Rank::Two,
         suit: types::Suit::Diamonds,
     };
 
@@ -28,8 +28,8 @@ fn main() {
         suit: types::Suit::Spades,
     });
     table.add_card(Card {
-        rank: types::Rank::Jack,
-        suit: types::Suit::Spades,
+        rank: types::Rank::Five,
+        suit: types::Suit::Diamonds,
     });    
     table.add_card(Card {
         rank: types::Rank::Jack,
@@ -37,7 +37,7 @@ fn main() {
     });   
     table.add_card(Card {
         rank: types::Rank::Four,
-        suit: types::Suit::Spades,
+        suit: types::Suit::Hearts,
     });  
     table.add_card(Card {
         rank: types::Rank::Four,

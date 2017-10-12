@@ -7,6 +7,7 @@ mod four_of_a_kind;
 mod full_house;
 mod flush;
 mod straight;
+mod three_of_a_kind;
 
 mod utility;
 
@@ -35,6 +36,10 @@ impl Calculator {
     if let Some(result) = straight::test(hand, table) {
       return result;
     }
+
+    if let Some(result) = three_of_a_kind::test(hand, table) {
+      return result;
+    }    
 
     types::Combination::HighCard(vec![])
   } 
