@@ -3,6 +3,8 @@
 #[derive(Hash)]
 #[derive(PartialEq)]
 #[derive(Eq)]
+#[derive(PartialOrd)]
+#[derive(Ord)]
 pub enum Rank {
   Two,
   Three,
