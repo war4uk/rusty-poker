@@ -1,16 +1,16 @@
 use types;
 use card;
 
-pub fn test<'a, 'b>(mut sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
-  if sorted_cards.len() < 5 {
+use calculator::utility;
+
+pub fn test(mut cards: Vec<card::Card>) -> Option<types::Combination> {
+  if cards.len() < 5 {
     return None;
   }
 
-  if sorted_cards.len() < 5 {
-    return None;
-  }
+  utility::sort_cards(&mut cards);
 
-  let highest_five_cards = &mut sorted_cards[0..4];
+  let highest_five_cards = &mut cards[0..4];
   highest_five_cards.reverse();
 
   let suit = highest_five_cards[0].suit;

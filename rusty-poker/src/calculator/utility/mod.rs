@@ -3,19 +3,12 @@ use std::collections::HashMap;
 use card;
 use types;
 
-pub fn get_sorted_cards(
-  hand_cards: &[card::Card],
-  table_cards: &[Option<card::Card>],
-) -> Vec<card::Card> {
-  let mut result: Vec<card::Card> = combine_hand_and_table(hand_cards, table_cards);
-
-  result.sort_by(|ref a, ref b| {
-    let a_rank: i32 = a.rank as i32;
-    let b_rank: i32 = b.rank as i32;
+pub fn sort_cards(cards: &mut Vec<card::Card>) -> () {
+  cards.sort_by(|ref a, ref b| {
+    let a_rank = a.rank;
+    let b_rank = b.rank;
     return b_rank.cmp(&a_rank);
   });
-
-  result
 }
 
 pub fn get_count_hash_map(cards: &[card::Card]) -> HashMap<types::Rank, i32> {
@@ -28,7 +21,7 @@ pub fn get_count_hash_map(cards: &[card::Card]) -> HashMap<types::Rank, i32> {
   })
 }
 
-fn combine_hand_and_table(
+pub fn combine_hand_and_table(
   hand_cards: &[card::Card],
   table_cards: &[Option<card::Card>],
 ) -> Vec<card::Card> {

@@ -1,12 +1,16 @@
 use types;
 use card;
 
-pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
-  if sorted_cards.len() < 5 {
+use calculator::utility;
+
+pub fn test(mut cards: Vec<card::Card>) -> Option<types::Combination> {
+  if cards.len() < 5 {
     return None;
   }
 
-  if test_ace_starting_straight(&sorted_cards[..]) {
+  utility::sort_cards(&mut cards);
+
+  if test_ace_starting_straight(&cards[..]) {
     return Some(types::Combination::Straight([
       types::Rank::Five,
       types::Rank::Four,
@@ -16,8 +20,8 @@ pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
     ]));
   }
 
-  for i in 0..(sorted_cards.len() - 5 + 1) {
-    let slice_to_test = &sorted_cards[i..(i + 5)];
+  for i in 0..(cards.len() - 5 + 1) {
+    let slice_to_test = &cards[i..(i + 5)];
     if test_straight_for_slice(slice_to_test) {
       let rank_vector = &slice_to_test
         .into_iter()
@@ -32,9 +36,9 @@ pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
   None
 }
 
-fn test_straight_for_slice(sorted_cards: &[card::Card]) -> bool {
-  let mut prev_card = sorted_cards[0];
-  for card in sorted_cards[1..].iter() {
+fn test_straight_for_slice(cards: &[card::Card]) -> bool {
+  let mut prev_card = cards[0];
+  for card in cards[1..].iter() {
     if prev_card.rank as i32 != (card.rank as i32 + 1) {
       return false;
     }

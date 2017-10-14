@@ -33,7 +33,7 @@ impl Clone for Suit {
   }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum Combination {
   HighCard(Vec<Rank>), // kickers from biggest to lowest. Can have variable cards
   Pair(Rank),

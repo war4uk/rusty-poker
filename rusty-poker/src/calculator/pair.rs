@@ -2,12 +2,12 @@ use card;
 use types;
 use calculator::utility;
 
-pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
-  if sorted_cards.len() < 2 {
+pub fn test(cards: Vec<card::Card>) -> Option<types::Combination> {
+  if cards.len() < 2 {
     return None;
   }
 
-  let hash_map = utility::get_count_hash_map(&sorted_cards[..]);
+  let hash_map = utility::get_count_hash_map(&cards[..]);
 
   let mut current_pair: Option<types::Rank> = None;
 

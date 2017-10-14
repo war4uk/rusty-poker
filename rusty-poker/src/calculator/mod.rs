@@ -21,7 +21,7 @@ impl Calculator {
     hand: &'b hand::Hand,
     table: &'b table::Table,
   ) -> types::Combination {
-    let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
+    let sorted_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]);
 
     if let Some(result) = straight_flush::test(sorted_cards.clone()) {
       return result;
