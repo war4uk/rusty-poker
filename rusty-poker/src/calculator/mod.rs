@@ -9,6 +9,7 @@ mod flush;
 mod straight;
 mod three_of_a_kind;
 mod two_pairs;
+mod pair;
 
 mod utility;
 
@@ -44,6 +45,10 @@ impl Calculator {
     }
 
     if let Some(result) = two_pairs::test(hand, table) {
+      return result;
+    }
+
+    if let Some(result) = pair::test(hand, table) {
       return result;
     }
 

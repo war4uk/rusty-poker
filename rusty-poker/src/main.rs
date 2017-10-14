@@ -40,7 +40,7 @@ fn main() {
         suit: types::Suit::Hearts,
     });
     table.add_card(Card {
-        rank: types::Rank::Four,
+        rank: types::Rank::Ten,
         suit: types::Suit::Spades,
     });
 
