@@ -10,16 +10,24 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
     return None;
   }
 
-    for suit in vec![types::Suit::Clubs, types::Suit::Diamonds, types::Suit::Hearts, types::Suit::Spades] {
-      if let Some(flush) = test_flush_for_suit_for_slice(suit, &sorted_cards[..]) {
-        return Some(types::Combination::Flush(suit, flush));
-      }       
+  for suit in vec![
+    types::Suit::Clubs,
+    types::Suit::Diamonds,
+    types::Suit::Hearts,
+    types::Suit::Spades,
+  ] {
+    if let Some(flush) = test_flush_for_suit_for_slice(suit, &sorted_cards[..]) {
+      return Some(types::Combination::Flush(suit, flush));
     }
+  }
 
-    return None;
+  return None;
 }
 
-fn test_flush_for_suit_for_slice(suit: types::Suit, sorted_cards: &[card::Card]) -> Option<Vec<types::Rank>> { 
+fn test_flush_for_suit_for_slice(
+  suit: types::Suit,
+  sorted_cards: &[card::Card],
+) -> Option<Vec<types::Rank>> {
   let mut count = 0;
   let mut flush: Vec<types::Rank> = vec![];
   for card in sorted_cards[..].iter() {
@@ -32,7 +40,7 @@ fn test_flush_for_suit_for_slice(suit: types::Suit, sorted_cards: &[card::Card])
   if count > 4 {
     flush.truncate(5);
     return Some(flush);
-  } 
+  }
 
   None
 }

@@ -9,7 +9,7 @@ pub use self::hand::Hand;
 pub use self::table::Table;
 pub use calculator::Calculator;
 
-fn main() {    
+fn main() {
     let card1 = Card {
         rank: types::Rank::Two,
         suit: types::Suit::Diamonds,
@@ -30,21 +30,24 @@ fn main() {
     table.add_card(Card {
         rank: types::Rank::Five,
         suit: types::Suit::Diamonds,
-    });    
+    });
     table.add_card(Card {
         rank: types::Rank::Jack,
         suit: types::Suit::Spades,
-    });   
+    });
     table.add_card(Card {
         rank: types::Rank::Four,
         suit: types::Suit::Hearts,
-    });  
+    });
     table.add_card(Card {
         rank: types::Rank::Four,
         suit: types::Suit::Spades,
-    });       
+    });
 
     println!("{:?}", hand);
-    println!("{:?}", table);  
-    println!(" -> {:?}", Calculator::get_highest_combination(&hand, &table));  
+    println!("{:?}", table);
+    println!(
+        " -> {:?}",
+        Calculator::get_highest_combination(&hand, &table)
+    );
 }

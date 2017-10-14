@@ -6,9 +6,9 @@ pub struct Hand {
 }
 
 impl Hand {
-    pub fn new(card1: card::Card, card2: card::Card) -> Hand {
-      Hand {
-        cards: [card1, card2],
-      }
+  pub fn new(card1: card::Card, card2: card::Card) -> Hand {
+    Hand {
+      cards: [card1, card2],
     }
-} 
+  }
+}

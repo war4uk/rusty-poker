@@ -11,12 +11,13 @@ mod three_of_a_kind;
 
 mod utility;
 
-pub struct Calculator {
-
-}
+pub struct Calculator {}
 
 impl Calculator {
-  pub fn get_highest_combination<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> types::Combination {
+  pub fn get_highest_combination<'a, 'b>(
+    hand: &'b hand::Hand,
+    table: &'b table::Table,
+  ) -> types::Combination {
     if let Some(result) = straight_flush::test(hand, table) {
       return result;
     }
@@ -39,8 +40,8 @@ impl Calculator {
 
     if let Some(result) = three_of_a_kind::test(hand, table) {
       return result;
-    }    
+    }
 
     types::Combination::HighCard(vec![])
-  } 
+  }
 }

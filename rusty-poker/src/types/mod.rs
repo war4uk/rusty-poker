@@ -1,39 +1,36 @@
-#[derive(Debug)]
-#[derive(Copy)]
-#[derive(Hash)]
-#[derive(PartialEq)]
-#[derive(Eq)]
-#[derive(PartialOrd)]
-#[derive(Ord)]
+#[derive(Debug, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Rank {
   Two,
   Three,
   Four,
   Five,
   Six,
-  Seven, 
+  Seven,
   Eight,
   Nine,
   Ten,
   Jack,
   Queen,
   King,
-  Ace
+  Ace,
 }
 impl Clone for Rank {
-    fn clone(&self) -> Rank { *self }
+  fn clone(&self) -> Rank {
+    *self
+  }
 }
 
-#[derive(Debug)]
-#[derive(Copy)]
+#[derive(Debug, Copy)]
 pub enum Suit {
   Diamonds,
   Clubs,
   Hearts,
-  Spades
+  Spades,
 }
 impl Clone for Suit {
-    fn clone(&self) -> Suit { *self }
+  fn clone(&self) -> Suit {
+    *self
+  }
 }
 
 #[derive(Debug)]
@@ -46,5 +43,5 @@ pub enum Combination {
   Flush(Suit, Vec<Rank>),
   FullHouse(Vec<Rank>),
   FourOfAKind(Vec<Rank>),
-  StraightFlush(Vec<Rank>)
+  StraightFlush(Vec<Rank>),
 }
