@@ -16,7 +16,13 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   }
 
   if test_ace_starting_straight(&combined_cards[..]) {
-    return Some(types::Combination::Straight(vec![types::Rank::Five]));
+    return Some(types::Combination::Straight([
+      types::Rank::Five,
+      types::Rank::Four,
+      types::Rank::Three,
+      types::Rank::Two,
+      types::Rank::Ace,
+    ]));
   }
 
   let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
@@ -24,7 +30,14 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   for i in 0..(combined_cards.len() - 5 + 1) {
     let slice_to_test = &sorted_cards[i..(i + 5)];
     if test_straight_for_slice(slice_to_test) {
-      return Some(types::Combination::Straight(vec![slice_to_test[0].rank]));
+      let rank_vector = &slice_to_test
+        .into_iter()
+        .map(|&card| card.clone().rank)
+        .collect::<Vec<types::Rank>>();
+
+      let mut result: [types::Rank; 5] = [types::Rank::Ace; 5];
+      result.clone_from_slice(rank_vector);
+      return Some(types::Combination::Straight(result));
     }
   }
   None

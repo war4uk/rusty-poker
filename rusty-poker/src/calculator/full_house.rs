@@ -48,9 +48,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
 
   if let Some(current_three) = three_cards {
     if let Some(current_two) = two_cards {
-      return Some(types::Combination::FullHouse(
-        vec![current_three, current_two],
-      ));
+      return Some(types::Combination::FullHouse(current_three, current_two));
     }
   }
 

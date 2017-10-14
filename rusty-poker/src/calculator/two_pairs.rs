@@ -50,7 +50,8 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   if let Some(current_high_pair_rank) = highest_two_cards {
     if let Some(current_low_pair_rank) = lower_two_cards {
       return Some(types::Combination::TwoPair(
-        vec![current_high_pair_rank, current_low_pair_rank],
+        current_high_pair_rank,
+        current_low_pair_rank,
       ));
     }
   }

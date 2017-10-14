@@ -16,11 +16,11 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   let highest_five_cards = &mut sorted_cards[0..4];
   highest_five_cards.reverse();
 
-  let suit = highest_five_cards[0].suit as i32;
+  let suit = highest_five_cards[0].suit;
   let mut rank: i32 = highest_five_cards[0].rank as i32;
 
   for card in highest_five_cards.iter() {
-    if suit == (card.suit as i32) && rank == (card.rank as i32) {
+    if suit == card.suit && rank == (card.rank as i32) {
       rank = rank - 1;
     } else {
       return None;
@@ -29,5 +29,8 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
 
   let ranks: Vec<types::Rank> = highest_five_cards.iter().map(|x| x.rank).collect();
 
-  Some(types::Combination::StraightFlush(ranks))
+  let mut result: [types::Rank; 5] = [types::Rank::Ace; 5];
+  result.clone_from_slice(&ranks);
+
+  Some(types::Combination::StraightFlush(suit, result))
 }

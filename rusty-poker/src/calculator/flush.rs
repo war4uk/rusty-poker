@@ -17,7 +17,10 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
     types::Suit::Spades,
   ] {
     if let Some(flush) = test_flush_for_suit_for_slice(suit, &sorted_cards[..]) {
-      return Some(types::Combination::Flush(suit, flush));
+      let mut result: [types::Rank; 5] = [types::Rank::Ace; 5];
+      result.clone_from_slice(&flush);
+
+      return Some(types::Combination::Flush(suit, result));
     }
   }
 

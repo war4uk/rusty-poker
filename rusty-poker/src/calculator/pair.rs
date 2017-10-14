@@ -28,7 +28,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   }
 
   if let Some(current_pair_rank) = current_pair {
-    return Some(types::Combination::Pair(vec![current_pair_rank]));
+    return Some(types::Combination::Pair(current_pair_rank));
   }
 
   return None;

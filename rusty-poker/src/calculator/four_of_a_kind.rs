@@ -18,10 +18,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
 
   for (&rank_value, &count) in &hash_map {
     if count == 4 {
-      let mut cards_of_four = combined_cards.iter().filter(|card| card.rank == rank_value);
-      return Some(types::Combination::FourOfAKind(
-        vec![cards_of_four.next().unwrap().rank],
-      ));
+      return Some(types::Combination::FourOfAKind(rank_value));
     }
   }
 

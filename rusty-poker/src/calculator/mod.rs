@@ -10,6 +10,7 @@ mod straight;
 mod three_of_a_kind;
 mod two_pairs;
 mod pair;
+mod kickers;
 
 mod utility;
 
@@ -52,6 +53,6 @@ impl Calculator {
       return result;
     }
 
-    types::Combination::HighCard(vec![])
+    return kickers::test(hand, table);
   }
 }

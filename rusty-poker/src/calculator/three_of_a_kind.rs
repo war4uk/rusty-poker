@@ -28,7 +28,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
   }
 
   if let Some(current_set_rank) = largest_set {
-    return Some(types::Combination::ThreeOfAKind(vec![current_set_rank]));
+    return Some(types::Combination::ThreeOfAKind(current_set_rank));
   }
 
   None

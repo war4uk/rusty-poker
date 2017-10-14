@@ -20,7 +20,7 @@ impl Clone for Rank {
   }
 }
 
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, PartialEq, Eq)]
 pub enum Suit {
   Diamonds,
   Clubs,
@@ -35,13 +35,13 @@ impl Clone for Suit {
 
 #[derive(Debug)]
 pub enum Combination {
-  HighCard(Vec<Rank>),
-  Pair(Vec<Rank>),
-  TwoPair(Vec<Rank>),
-  ThreeOfAKind(Vec<Rank>),
-  Straight(Vec<Rank>),
-  Flush(Suit, Vec<Rank>),
-  FullHouse(Vec<Rank>),
-  FourOfAKind(Vec<Rank>),
-  StraightFlush(Vec<Rank>),
+  HighCard(Vec<Rank>), // kickers from biggest to lowest. Can have variable cards
+  Pair(Rank),
+  TwoPair(Rank, Rank),
+  ThreeOfAKind(Rank),
+  Straight([Rank; 5]), // there can be a A;2;3;4;5 straight which is not trivial in calculating
+  Flush(Suit, [Rank; 5]),
+  FullHouse(Rank, Rank),
+  FourOfAKind(Rank),
+  StraightFlush(Suit, [Rank; 5]), // there can be a A;2;3;4;5 straight flush which is not trivial in calculating
 }
