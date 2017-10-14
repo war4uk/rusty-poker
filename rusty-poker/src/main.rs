@@ -24,7 +24,7 @@ fn main() {
     let mut table = Table::new();
 
     table.add_card(Card {
-        rank: types::Rank::Four,
+        rank: types::Rank::Five,
         suit: types::Suit::Spades,
     });
     table.add_card(Card {
