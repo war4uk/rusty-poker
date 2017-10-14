@@ -1,21 +1,12 @@
-use hand;
-use table;
 use types;
 use card;
-use calculator::utility;
 
-pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<types::Combination> {
-  if table.cards_count() < 4 {
+pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
+  if sorted_cards.len() < 5 {
     return None;
   }
 
-  let combined_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]);
-
-  if combined_cards.len() < 5 {
-    return None;
-  }
-
-  if test_ace_starting_straight(&combined_cards[..]) {
+  if test_ace_starting_straight(&sorted_cards[..]) {
     return Some(types::Combination::Straight([
       types::Rank::Five,
       types::Rank::Four,
@@ -25,9 +16,7 @@ pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<typ
     ]));
   }
 
-  let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
-
-  for i in 0..(combined_cards.len() - 5 + 1) {
+  for i in 0..(sorted_cards.len() - 5 + 1) {
     let slice_to_test = &sorted_cards[i..(i + 5)];
     if test_straight_for_slice(slice_to_test) {
       let rank_vector = &slice_to_test

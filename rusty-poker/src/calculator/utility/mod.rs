@@ -18,7 +18,17 @@ pub fn get_sorted_cards(
   result
 }
 
-pub fn combine_hand_and_table(
+pub fn get_count_hash_map(cards: &[card::Card]) -> HashMap<types::Rank, i32> {
+  cards.iter().fold(HashMap::new(), |mut acc, &card| {
+    {
+      let stat = acc.entry(card.rank).or_insert(0);
+      *stat += 1;
+    }
+    acc
+  })
+}
+
+fn combine_hand_and_table(
   hand_cards: &[card::Card],
   table_cards: &[Option<card::Card>],
 ) -> Vec<card::Card> {
@@ -32,14 +42,4 @@ pub fn combine_hand_and_table(
   }
 
   result
-}
-
-pub fn get_count_hash_map(cards: &[card::Card]) -> HashMap<types::Rank, i32> {
-  cards.iter().fold(HashMap::new(), |mut acc, &card| {
-    {
-      let stat = acc.entry(card.rank).or_insert(0);
-      *stat += 1;
-    }
-    acc
-  })
 }

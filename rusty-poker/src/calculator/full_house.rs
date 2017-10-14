@@ -1,22 +1,15 @@
 use std::cmp;
 
-use hand;
-use table;
+use card;
 use types;
 use calculator::utility;
 
-pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<types::Combination> {
-  if table.cards_count() < 2 {
+pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
+  if sorted_cards.len() < 4 {
     return None;
   }
 
-  let combined_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]);
-
-  if combined_cards.len() < 4 {
-    return None;
-  }
-
-  let hash_map = utility::get_count_hash_map(&combined_cards[..]);
+  let hash_map = utility::get_count_hash_map(&sorted_cards[..]);
 
   let mut three_cards: Option<types::Rank> = None;
   let mut two_cards: Option<types::Rank> = None;

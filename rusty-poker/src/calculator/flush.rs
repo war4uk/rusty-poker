@@ -1,11 +1,7 @@
-use hand;
-use table;
 use types;
 use card;
-use calculator::utility;
 
-pub fn test<'a, 'b>(hand: &'b hand::Hand, table: &'b table::Table) -> Option<types::Combination> {
-  let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
+pub fn test(sorted_cards: Vec<card::Card>) -> Option<types::Combination> {
   if sorted_cards.len() < 5 {
     return None;
   }

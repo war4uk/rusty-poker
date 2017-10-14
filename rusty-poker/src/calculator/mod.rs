@@ -21,38 +21,40 @@ impl Calculator {
     hand: &'b hand::Hand,
     table: &'b table::Table,
   ) -> types::Combination {
-    if let Some(result) = straight_flush::test(hand, table) {
+    let sorted_cards = utility::get_sorted_cards(&hand.cards[..], &table.cards[..]);
+
+    if let Some(result) = straight_flush::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = four_of_a_kind::test(hand, table) {
+    if let Some(result) = four_of_a_kind::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = full_house::test(hand, table) {
+    if let Some(result) = full_house::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = flush::test(hand, table) {
+    if let Some(result) = flush::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = straight::test(hand, table) {
+    if let Some(result) = straight::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = three_of_a_kind::test(hand, table) {
+    if let Some(result) = three_of_a_kind::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = two_pairs::test(hand, table) {
+    if let Some(result) = two_pairs::test(sorted_cards.clone()) {
       return result;
     }
 
-    if let Some(result) = pair::test(hand, table) {
+    if let Some(result) = pair::test(sorted_cards.clone()) {
       return result;
     }
 
-    return kickers::test(hand, table);
+    return kickers::test(sorted_cards.clone());
   }
 }
