@@ -55,6 +55,6 @@ impl Calculator {
       return result;
     }
 
-    return kickers::test(sorted_cards.clone());
+    return kickers::test(sorted_cards);
   }
 }
