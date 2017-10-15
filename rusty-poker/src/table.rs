@@ -1,4 +1,5 @@
 use card;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Table {
@@ -24,5 +25,19 @@ impl Table {
 
   pub fn cards_count(&self) -> usize {
     self.cards_on_table
+  }
+}
+
+impl fmt::Display for Table {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    try!(write!(f, "Table:"));
+
+    for card_option in self.cards.iter() {
+      if let Some(card) = *card_option {
+        try!(write!(f, " {};", card));
+      }
+    }
+
+    write!(f, "")
   }
 }

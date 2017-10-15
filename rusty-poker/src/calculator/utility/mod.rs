@@ -36,3 +36,32 @@ pub fn combine_hand_and_table(
 
   result
 }
+
+
+pub fn check_cards_sanity(cards: &[card::Card]) -> () {
+  if cards.len() == 0 {
+    panic!("no cards provided");
+  }
+
+  if cards.len() > 7 {
+    panic!("too many cards: {}", cards.len());
+  }
+
+  let hash_map = get_count_hash_map(cards);
+
+  for (&rank, &count) in &hash_map {
+    if count > 4 {
+      panic!("too many cards of {:?} rank: {} ", rank, count);
+    }
+  }
+
+  let mut index = 1;
+  for card_to_find in cards.iter() {
+    for card_to_be_tested in &cards[index..] {
+      if *card_to_find == *card_to_be_tested {
+        panic!("two same cards found: {}", card_to_find);
+      }
+    }
+    index = index + 1;
+  }
+}

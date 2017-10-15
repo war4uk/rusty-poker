@@ -24,7 +24,7 @@ fn main() {
     let mut table = Table::new();
 
     table.add_card(Card {
-        rank: types::Rank::King,
+        rank: types::Rank::Five,
         suit: types::Suit::Spades,
     });
     table.add_card(Card {
@@ -44,8 +44,8 @@ fn main() {
         suit: types::Suit::Spades,
     });
 
-    println!("{:?}", hand);
-    println!("{:?}", table);
+    println!("{}", hand);
+    println!("{}", table);
     println!(
         " -> {:?}",
         Calculator::get_highest_combination(&hand, &table)

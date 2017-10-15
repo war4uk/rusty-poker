@@ -1,4 +1,5 @@
 use card;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Hand {
@@ -10,5 +11,11 @@ impl Hand {
     Hand {
       cards: [card1, card2],
     }
+  }
+}
+
+impl fmt::Display for Hand {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    write!(f, "Hand: {}; {};", self.cards[0], self.cards[1])
   }
 }

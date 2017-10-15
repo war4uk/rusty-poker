@@ -23,6 +23,8 @@ impl Calculator {
   ) -> types::Combination {
     let sorted_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]);
 
+    utility::check_cards_sanity(&sorted_cards);
+
     if let Some(result) = straight_flush::test(sorted_cards.clone()) {
       return result;
     }

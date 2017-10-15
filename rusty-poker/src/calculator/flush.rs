@@ -52,6 +52,7 @@ fn test_flush_for_suit_for_slice(suit: types::Suit, cards: &[Card]) -> Option<Ve
 #[cfg(test)]
 mod tests {
   use super::*;
+
   #[test]
   fn none_for_empty() {
     assert_eq!(None, test(vec![]));
