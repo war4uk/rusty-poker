@@ -113,4 +113,40 @@ mod tests {
       ])
     );
   }
+  #[test]
+  fn option_for_seven_cards_with_four_of_a_kind_with_duplicates() {
+    assert_eq!(
+      Some(types::Combination::FourOfAKind(types::Rank::Two)),
+      test(vec![
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Three,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Diamonds,
+        },
+      ])
+    );
+  }
 }

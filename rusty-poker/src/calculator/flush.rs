@@ -253,4 +253,69 @@ mod tests {
 
     assert_eq!(None, test(cards.to_vec()));
   }
+
+  #[test]
+  fn option_for_ten_unsorted_cards_with_five_spades_and_duplicates() {
+    let cards = [
+      Card {
+        rank: types::Rank::Two,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Two,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Queen,
+        suit: types::Suit::Diamonds,
+      },
+      Card {
+        rank: types::Rank::King,
+        suit: types::Suit::Clubs,
+      },
+      Card {
+        rank: types::Rank::Three,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Ace,
+        suit: types::Suit::Hearts,
+      },
+      Card {
+        rank: types::Rank::Ten,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Five,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Five,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Five,
+        suit: types::Suit::Spades,
+      },
+      Card {
+        rank: types::Rank::Five,
+        suit: types::Suit::Spades,
+      },
+    ];
+
+    assert_eq!(
+      Some(types::Combination::Flush(
+        types::Suit::Spades,
+        [
+          types::Rank::Ten,
+          types::Rank::Five,
+          types::Rank::Five,
+          types::Rank::Five,
+          types::Rank::Five
+        ]
+      )),
+      test(cards.to_vec())
+    );
+  }
+
 }
