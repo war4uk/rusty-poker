@@ -20,7 +20,7 @@ impl Clone for Rank {
   }
 }
 
-#[derive(Debug, Copy, PartialEq, Eq)]
+#[derive(Debug, Copy, PartialEq, Eq, Hash)]
 pub enum Suit {
   Diamonds,
   Clubs,

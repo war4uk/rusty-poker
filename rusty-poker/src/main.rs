@@ -11,32 +11,32 @@ pub use calculator::Calculator;
 
 fn main() {
     let card1 = Card {
-        rank: types::Rank::Two,
+        rank: types::Rank::Three,
         suit: types::Suit::Diamonds,
     };
 
     let card2 = Card {
-        rank: types::Rank::Three,
-        suit: types::Suit::Spades,
+        rank: types::Rank::King,
+        suit: types::Suit::Hearts,
     };
 
     let hand = Hand::new(card1, card2);
     let mut table = Table::new();
 
     table.add_card(Card {
-        rank: types::Rank::Five,
-        suit: types::Suit::Spades,
-    });
-    table.add_card(Card {
-        rank: types::Rank::Five,
-        suit: types::Suit::Diamonds,
+        rank: types::Rank::Queen,
+        suit: types::Suit::Hearts,
     });
     table.add_card(Card {
         rank: types::Rank::Jack,
-        suit: types::Suit::Spades,
+        suit: types::Suit::Hearts,
     });
     table.add_card(Card {
-        rank: types::Rank::Four,
+        rank: types::Rank::Ten,
+        suit: types::Suit::Hearts,
+    });
+    table.add_card(Card {
+        rank: types::Rank::Nine,
         suit: types::Suit::Hearts,
     });
     table.add_card(Card {
