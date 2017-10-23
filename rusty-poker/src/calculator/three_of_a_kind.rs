@@ -30,6 +30,7 @@ pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
 
   None
 }
+
 #[cfg(test)]
 mod tests {
   use super::*;

@@ -1,9 +1,9 @@
-use card;
+use card::Card;
 use types;
 
 use calculator::utility;
 
-pub fn test(cards: Vec<card::Card>) -> Option<types::Combination> {
+pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
   if cards.len() < 4 {
     return None;
   }
@@ -51,4 +51,108 @@ pub fn test(cards: Vec<card::Card>) -> Option<types::Combination> {
   }
 
   return None;
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn none_for_empty() {
+    assert_eq!(None, test(vec![]));
+  }
+
+  #[test]
+  fn none_for_three_cards() {
+    assert_eq!(
+      None,
+      test(vec![
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Seven,
+          suit: types::Suit::Diamonds,
+        },
+      ])
+    );
+  }
+
+  #[test]
+  fn option_for_two_pairs() {
+    assert_eq!(
+      Some(types::Combination::TwoPair(
+        types::Rank::Seven,
+        types::Rank::Five
+      )),
+      test(vec![
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Seven,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Jack,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Seven,
+          suit: types::Suit::Diamonds,
+        },
+      ])
+    );
+  }
+
+  #[test]
+  fn chooses_highest_two_pairs() {
+    assert_eq!(
+      Some(types::Combination::TwoPair(
+        types::Rank::Ace,
+        types::Rank::Seven
+      )),
+      test(vec![
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Five,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Seven,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Seven,
+          suit: types::Suit::Diamonds,
+        },
+      ])
+    );
+  }
+
 }
