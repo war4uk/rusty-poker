@@ -1,10 +1,10 @@
 use std::cmp;
 
-use card;
+use card::Card;
 use types;
 use calculator::utility;
 
-pub fn test(cards: Vec<card::Card>) -> Option<types::Combination> {
+pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
   if cards.len() < 3 {
     return None;
   }
@@ -29,4 +29,164 @@ pub fn test(cards: Vec<card::Card>) -> Option<types::Combination> {
   }
 
   None
+}
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn none_for_empty() {
+    assert_eq!(None, test(vec![]));
+  }
+
+  #[test]
+  fn none_for_seven_cards_without_three_of_a_kind() {
+    assert_eq!(
+      None,
+      test(vec![
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Six,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::King,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Hearts,
+        },
+      ])
+    );
+  }
+
+  #[test]
+  fn none_for_seven_cards_with_four_of_a_kind() {
+    // because of impl specifics
+    assert_eq!(
+      None,
+      test(vec![
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Six,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Hearts,
+        },
+      ])
+    );
+  }
+
+  #[test]
+  fn option_for_seven_cards_with_three_of_a_kind() {
+    // because of impl specifics
+    assert_eq!(
+      Some(types::Combination::ThreeOfAKind(types::Rank::Four)),
+      test(vec![
+        Card {
+          rank: types::Rank::Jack,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Two,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Six,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Hearts,
+        },
+      ])
+    );
+  }
+
+  #[test]
+  fn option_for_seven_cards_chooses_highest_with_three_of_a_kind() {
+    // because of impl specifics
+    assert_eq!(
+      Some(types::Combination::ThreeOfAKind(types::Rank::Jack)),
+      test(vec![
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Jack,
+          suit: types::Suit::Spades,
+        },
+        Card {
+          rank: types::Rank::Four,
+          suit: types::Suit::Hearts,
+        },
+        Card {
+          rank: types::Rank::Ace,
+          suit: types::Suit::Clubs,
+        },
+        Card {
+          rank: types::Rank::Jack,
+          suit: types::Suit::Diamonds,
+        },
+        Card {
+          rank: types::Rank::Jack,
+          suit: types::Suit::Hearts,
+        },
+      ])
+    );
+  }
 }
