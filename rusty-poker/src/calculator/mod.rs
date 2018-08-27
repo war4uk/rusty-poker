@@ -2,24 +2,24 @@ use hand;
 use table;
 use types;
 
-mod straight_flush;
+mod flush;
 mod four_of_a_kind;
 mod full_house;
-mod flush;
+mod kickers;
+mod pair;
 mod straight;
+mod straight_flush;
 mod three_of_a_kind;
 mod two_pairs;
-mod pair;
-mod kickers;
 
 mod utility;
 
 pub struct Calculator {}
 
 impl Calculator {
-  pub fn get_highest_combination<'a, 'b>(
-    hand: &'b hand::Hand,
-    table: &'b table::Table,
+  pub fn get_highest_combination<'a>(
+    hand: &'a hand::Hand,
+    table: &'a table::Table,
   ) -> types::Combination {
     let sorted_cards = utility::combine_hand_and_table(&hand.cards[..], &table.cards[..]);
 
