@@ -1,8 +1,13 @@
-mod types;
+#[macro_use]
+extern crate num_derive;
+extern crate num_traits;
+
+mod calculator;
 mod card;
+mod cards_iterator;
 mod hand;
 mod table;
-mod calculator;
+mod types;
 
 pub use self::card::Card;
 pub use self::hand::Hand;
@@ -50,4 +55,13 @@ fn main() {
         " -> {:?}",
         Calculator::get_highest_combination(&hand, &table)
     );
+
+    let cards_iterator = cards_iterator::CardsIterator::new();
+    let mut counter = 0;
+    for card in cards_iterator {
+        println!("{}", card);
+        counter = counter + 1;
+    }
+
+    println!("total iterations: {}", counter);
 }

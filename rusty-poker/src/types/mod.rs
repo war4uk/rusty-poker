@@ -1,6 +1,6 @@
-#[derive(Debug, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Copy, Hash, PartialEq, Eq, PartialOrd, Ord, FromPrimitive, ToPrimitive)]
 pub enum Rank {
-  Two,
+  Two = 0,
   Three,
   Four,
   Five,
@@ -20,9 +20,9 @@ impl Clone for Rank {
   }
 }
 
-#[derive(Debug, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, PartialEq, Eq, Hash, FromPrimitive, ToPrimitive)]
 pub enum Suit {
-  Diamonds,
+  Diamonds = 0,
   Clubs,
   Hearts,
   Spades,
