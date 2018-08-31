@@ -1,7 +1,7 @@
 use card;
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Table {
   cards_on_table: usize,
   pub cards: [Option<card::Card>; 5],

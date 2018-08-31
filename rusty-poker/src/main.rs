@@ -38,28 +38,35 @@ fn main() {
     });
     table.add_card(Card {
         rank: types::Rank::Ten,
-        suit: types::Suit::Hearts,
+        suit: types::Suit::Diamonds,
     });
     table.add_card(Card {
         rank: types::Rank::Nine,
         suit: types::Suit::Hearts,
     });
-    table.add_card(Card {
-        rank: types::Rank::Ten,
-        suit: types::Suit::Spades,
-    });
 
-    println!("{}", hand);
-    println!("{}", table);
-    println!(
-        " -> {:?}",
-        Calculator::get_highest_combination(&hand, &table)
-    );
+    let cloned_table = table.clone();
+
+    println!("hand: {}", hand);
+    println!("table: {}", table);
 
     let cards_iterator = cards_iterator::CardsIterator::new();
     let mut counter = 0;
     for card in cards_iterator {
-        println!("{}", card);
+        let mut current_table = cloned_table.clone();
+        if !hand.cards.contains(&card) && !table.cards.contains(&Some(card)) {
+            current_table.add_card(card);
+            println!("{} -> hand: {}", counter + 1, hand);
+            println!("{} -> table: {}", counter + 1, table);
+            println!(
+                "{} -> {:?}",
+                counter + 1,
+                Calculator::get_highest_combination(&hand, &current_table)
+            );
+        } else {
+            println!("{} -> already in game: {}", counter + 1, card);
+        }
+
         counter = counter + 1;
     }
 
