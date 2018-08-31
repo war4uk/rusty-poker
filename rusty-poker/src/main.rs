@@ -38,11 +38,11 @@ fn main() {
     });
     table.add_card(Card {
         rank: types::Rank::Ten,
-        suit: types::Suit::Diamonds,
+        suit: types::Suit::Hearts,
     });
     table.add_card(Card {
         rank: types::Rank::Nine,
-        suit: types::Suit::Hearts,
+        suit: types::Suit::Diamonds,
     });
 
     let cloned_table = table.clone();
@@ -57,7 +57,7 @@ fn main() {
         if !hand.cards.contains(&card) && !table.cards.contains(&Some(card)) {
             current_table.add_card(card);
             println!("{} -> hand: {}", counter + 1, hand);
-            println!("{} -> table: {}", counter + 1, table);
+            println!("{} -> table: {}", counter + 1, current_table);
             println!(
                 "{} -> {:?}",
                 counter + 1,
