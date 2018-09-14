@@ -1,5 +1,5 @@
-use types;
 use std::fmt;
+use types;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Card {

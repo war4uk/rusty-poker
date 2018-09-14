@@ -37,7 +37,6 @@ pub fn combine_hand_and_table(
   result
 }
 
-
 pub fn check_cards_sanity(cards: &[card::Card]) -> () {
   if cards.len() == 0 {
     panic!("no cards provided");
@@ -64,4 +63,33 @@ pub fn check_cards_sanity(cards: &[card::Card]) -> () {
     }
     index = index + 1;
   }
+}
+
+pub fn gather_winning_hand(cards: &[card::Card]) -> [Option<card::Card>; 5] {
+  let mut result: [Option<card::Card>; 5] = [None; 5];
+  let mut index = 0;
+  for card_to_find in cards.iter() {
+    result[index] = Some(*card_to_find);
+    index = index + 1;
+  }
+
+  return result;
+}
+
+pub fn gather_cards_with_ranks(
+  ranks: &[types::Rank],
+  cards: &[card::Card],
+) -> [Option<card::Card>; 5] {
+  let mut winning_cards: Vec<card::Card> = vec![];
+
+  for rank in ranks.to_vec().iter() {
+    let candidate = cards
+      .iter()
+      .find(|card| card.rank == *rank && !winning_cards.contains(card))
+      .unwrap();
+
+    winning_cards.push(*candidate);
+  }
+
+  gather_winning_hand(&winning_cards[..])
 }

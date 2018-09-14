@@ -1,8 +1,9 @@
+use calculator::utility;
+use calculator::WinningHand;
 use card::Card;
 use types;
-use calculator::utility;
 
-pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
+pub fn test(cards: Vec<Card>) -> Option<WinningHand> {
     if cards.len() < 2 {
         return None;
     }
@@ -13,7 +14,7 @@ pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
 
     for (&rank_value, &count) in &hash_map {
         if count == 2 {
-            // if we have 3 or 4, then it should have been handled already
+            // if we have 3 or 4, then it should have been handled already in other combinations
             if let Some(current_pair_rank) = current_pair {
                 if current_pair_rank < rank_value {
                     current_pair = Some(rank_value);
@@ -25,7 +26,10 @@ pub fn test(cards: Vec<Card>) -> Option<types::Combination> {
     }
 
     if let Some(current_pair_rank) = current_pair {
-        return Some(types::Combination::Pair(current_pair_rank));
+        return Some((
+            types::Combination::Pair(current_pair_rank),
+            utility::gather_cards_with_ranks(&[current_pair_rank, current_pair_rank], &cards[..]),
+        ));
     }
 
     return None;
@@ -44,12 +48,10 @@ mod tests {
     fn none_for_one_card() {
         assert_eq!(
             None,
-            test(vec![
-                Card {
-                    rank: types::Rank::Two,
-                    suit: types::Suit::Hearts,
-                },
-            ])
+            test(vec![Card {
+                rank: types::Rank::Two,
+                suit: types::Suit::Hearts,
+            }])
         );
     }
 
@@ -72,34 +74,49 @@ mod tests {
 
     #[test]
     fn chooses_highest_pair() {
-        assert_eq!(
-            Some(types::Combination::Pair(types::Rank::Three)),
-            test(vec![
-                Card {
-                    rank: types::Rank::Two,
-                    suit: types::Suit::Hearts,
-                },
-                Card {
-                    rank: types::Rank::Three,
-                    suit: types::Suit::Hearts,
-                },
-                Card {
-                    rank: types::Rank::Two,
-                    suit: types::Suit::Diamonds,
-                },
-                Card {
-                    rank: types::Rank::Ace,
-                    suit: types::Suit::Diamonds,
-                },
-                Card {
-                    rank: types::Rank::King,
-                    suit: types::Suit::Spades,
-                },
-                Card {
-                    rank: types::Rank::Three,
-                    suit: types::Suit::Spades,
-                },
-            ])
-        );
+        let expected_combination = types::Combination::Pair(types::Rank::Three);
+        let cards = vec![
+            Card {
+                rank: types::Rank::Two,
+                suit: types::Suit::Hearts,
+            },
+            Card {
+                rank: types::Rank::Three,
+                suit: types::Suit::Hearts,
+            },
+            Card {
+                rank: types::Rank::Two,
+                suit: types::Suit::Diamonds,
+            },
+            Card {
+                rank: types::Rank::Ace,
+                suit: types::Suit::Diamonds,
+            },
+            Card {
+                rank: types::Rank::King,
+                suit: types::Suit::Spades,
+            },
+            Card {
+                rank: types::Rank::Three,
+                suit: types::Suit::Spades,
+            },
+        ];
+
+        let expected_cards = [
+            Some(Card {
+                rank: types::Rank::Three,
+                suit: types::Suit::Hearts,
+            }),
+            Some(Card {
+                rank: types::Rank::Three,
+                suit: types::Suit::Spades,
+            }),
+            None,
+            None,
+            None,
+        ];
+
+        let expected_winning_hand: WinningHand = (expected_combination, expected_cards);
+        assert_eq!(Some(expected_winning_hand), test(cards));
     }
 }

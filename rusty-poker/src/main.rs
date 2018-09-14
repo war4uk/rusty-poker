@@ -38,11 +38,11 @@ fn main() {
     });
     table.add_card(Card {
         rank: types::Rank::Ten,
-        suit: types::Suit::Hearts,
+        suit: types::Suit::Diamonds,
     });
     table.add_card(Card {
-        rank: types::Rank::Nine,
-        suit: types::Suit::Diamonds,
+        rank: types::Rank::Ace,
+        suit: types::Suit::Hearts,
     });
 
     let cloned_table = table.clone();
@@ -50,7 +50,12 @@ fn main() {
     println!("hand: {}", hand);
     println!("table: {}", table);
 
-    let cards_iterator = cards_iterator::CardsIterator::new();
+    println!(
+        "combination -> {:?}",
+        Calculator::get_winning_hand(&hand, &table)
+    );
+
+    /*let cards_iterator = cards_iterator::CardsIterator::new();
     let mut counter = 0;
     for card in cards_iterator {
         let mut current_table = cloned_table.clone();
@@ -70,5 +75,5 @@ fn main() {
         counter = counter + 1;
     }
 
-    println!("total iterations: {}", counter);
+    println!("total iterations: {}", counter);*/
 }
