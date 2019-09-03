@@ -28,11 +28,12 @@ impl Calculator {
     if let Some(result) = straight_flush::test(sorted_cards.clone()) {
       return result;
     }
-    /*
+    
     if let Some(result) = four_of_a_kind::test(sorted_cards.clone()) {
       return result;
     }
-
+    
+    /*  
     if let Some(result) = full_house::test(sorted_cards.clone()) {
       return result;
     }
